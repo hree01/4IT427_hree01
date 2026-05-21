@@ -1,16 +1,9 @@
 import FilmCard from '@/components/FilmCard';
-import { useState } from 'react';
+//import { useState } from 'react';
+import { useWatchlist } from '@/hooks/useWatchlist';
+import type { Film } from '@/hooks/useWatchlist';
 
-interface Film {
-  title: string;
-  year: number;
-  genre: string;
-  rating: number;
-  watched: boolean;
-}
-
-function App() {
-  const [films, setFilms] = useState<Film[]>([
+const initialFilms: Film[] = [
   {
     title: "Inception",
     year: 2010,
@@ -29,10 +22,11 @@ function App() {
     title: "Interstellar",
     year: 2014,
     genre: "Sci-Fi",
-    rating: 10, // Neplatné hodnocení
+    rating: 10,
     watched: false,
   },
-]);
+];
+function App() {
 
 const {films, toggleWatched, markAllAsWatched} = useWatchlist(initialFilms);
   return (
@@ -46,7 +40,7 @@ const {films, toggleWatched, markAllAsWatched} = useWatchlist(initialFilms);
         genre={film.genre}
         rating={film.rating}
         watched={film.watched}
-        onToggleWatched={() => { } } /></>
+        onToggleWatched={toggleWatched} /></>
     ))
   }
     </>
