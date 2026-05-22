@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useWatchlist } from '@/context/WatchlistContext';
+import styles from './AddFilmForm.module.css';
+
 export default function AddFilmForm() {
   const { addFilm } = useWatchlist();
   const [title, setTitle] = useState('');
@@ -26,12 +28,13 @@ export default function AddFilmForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={styles.form}>
       <input
         type="text"
         placeholder="Název filmu"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
+        className={styles.input}
         required
       />
       <input
@@ -39,6 +42,7 @@ export default function AddFilmForm() {
         placeholder="Rok vydání"
         value={year}
         onChange={(e) => setYear(e.target.value)}
+        className={styles.input}
         required
       />
       <input
@@ -46,6 +50,7 @@ export default function AddFilmForm() {
         placeholder="Žánr"
         value={genre}
         onChange={(e) => setGenre(e.target.value)}
+        className={styles.input}
         required
       />
       <input
@@ -53,11 +58,14 @@ export default function AddFilmForm() {
         placeholder="Hodnocení"
         value={rating}
         onChange={(e) => setRating(e.target.value)}
+        className={styles.input}
         required
         min={1}
         max={10}
       />
-      <button type="submit">Přidat film</button>
+      <button type="submit" className={styles.btnSubmit}>
+        Přidat film
+      </button>
     </form>
   );
 }

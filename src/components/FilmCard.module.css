@@ -1,0 +1,82 @@
+.card {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color var(--transition), border-color var(--transition);
+}
+
+/* Požadovaný hover efekt */
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* Styl pro zhlédnutý film */
+.cardWatched {
+  background-color: var(--surface-watched-color);
+  border-color: var(--border-watched-color);
+}
+
+.title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.meta {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.rating {
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  background-color: var(--success-color);
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border-radius: 20px;
+  align-self: flex-start;
+}
+
+.actions {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 10px;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.btnRemove {
+  background-color: transparent;
+  color: var(--danger-color);
+  border: 1px solid var(--danger-color);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.btnRemove:hover {
+  background-color: var(--danger-color);
+  color: white;
+}

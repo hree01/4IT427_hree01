@@ -1,0 +1,65 @@
+/* --- DESIGN TOKENY (Světlý motiv / Výchozí) --- */
+:root {
+  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  
+  /* Barvy */
+  --bg-color: #f8fafc;
+  --surface-color: #ffffff;
+  --surface-watched-color: #f0fdf4; /* Jemný zelený nádech pro zhlédnuté */
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --primary-color: #6366f1; /* Indigo */
+  --primary-hover: #4f46e5;
+  --danger-color: #ef4444;
+  --danger-hover: #dc2626;
+  --success-color: #22c55e;
+  --border-color: #e2e8f0;
+  --border-watched-color: #bbf7d0;
+
+  /* Efekty a mezery */
+  --radius-md: 12px;
+  --radius-sm: 8px;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --transition: all 0.2s ease;
+}
+
+/* --- DESIGN TOKENY (Tmavý motiv) --- */
+html.dark {
+  --bg-color: #0f172a;
+  --surface-color: #1e293b;
+  --surface-watched-color: #064e3b; /* Tmavě zelený nádech */
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --primary-color: #818cf8;
+  --primary-hover: #6366f1;
+  --danger-color: #f87171;
+  --danger-hover: #ef4444;
+  --border-color: #334155;
+  --border-watched-color: #065f46;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+}
+
+/* --- GLOBÁLNÍ RESET --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  transition: background-color var(--transition), color var(--transition);
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+/* Globální styly pro standardní tlačítka a inputy (aby ladily) */
+input, button {
+  font-family: inherit;
+  font-size: 1rem;
+}

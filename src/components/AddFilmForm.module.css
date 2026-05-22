@@ -1,0 +1,52 @@
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  background-color: var(--surface-color);
+  padding: 20px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 24px;
+  transition: background-color var(--transition), border-color var(--transition);
+}
+
+.input {
+  flex: 1;
+  min-width: 140px;
+  padding: 10px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  transition: var(--transition);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+.btnSubmit {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-weight: 600;
+  transition: var(--transition);
+  min-width: 120px;
+}
+
+.btnSubmit:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Responzivita: na malých mobilech dáme vstupy pod sebe full-width */
+@media (max-width: 480px) {
+  .input, .btnSubmit {
+    flex: 1 1 100%;
+  }
+}
