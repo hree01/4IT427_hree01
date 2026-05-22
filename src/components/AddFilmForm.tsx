@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useWatchlist } from '@/context/WatchlistContext';
 import styles from './AddFilmForm.module.css';
+import {useNavigate} from 'react-router-dom';
 
 export default function AddFilmForm() {
   const { addFilm } = useWatchlist();
@@ -8,6 +9,7 @@ export default function AddFilmForm() {
   const [year, setYear] = useState('');
   const [genre, setGenre] = useState('');
   const [rating, setRating] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,6 +27,7 @@ export default function AddFilmForm() {
     setYear('');
     setGenre('');
     setRating('');
+    navigate('/');
   };
 
   return (
