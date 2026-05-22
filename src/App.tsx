@@ -1,9 +1,12 @@
 /* Stylingová metoda: CSS Modules */
-import React, { useState, useEffect } from 'react';
-import FilmCard from '@/components/FilmCard';
-import AddFilmForm from '@/components/AddFilmForm';
-import { useWatchlist } from '@/context/WatchlistContext';
+import React, { useState } from 'react';
+/* import FilmCard from '@/components/FilmCard';
+import AddFilmForm from '@/components/AddFilmForm'; */
 import styles from './App.module.css';
+import { Routes, Route, NavLink, Navigate } from 'react-router-dom';
+import WatchlistPage from '@/pages/WatchlistPage';
+import AddFilmPage from '@/pages/AddFilmPage';
+
 
 
 function App() {
@@ -19,43 +22,42 @@ function App() {
     setIsDarkMode(html.classList.contains('dark'));
   };
 
-const {films, toggleWatched, removeFilm, markAllAsWatched} = useWatchlist();
-const watchedCount = films.filter(f => f.watched).length;
-const totalCount = films.length;
   return (
     <div className={`${styles.container} ${isDarkMode ? styles.dark : styles.light}`}>
+      {/* Společná navigace pro celou aplikaci */}
+      <nav className={styles.navbar}>
+        <NavLink to="/" end className={({ isActive }) => isActive ? styles.activeLink : styles.navLink}>
+          Můj Watchlist
+        </NavLink>
+        <NavLink 
+          to="/form" 
+          className={({ isActive }) => isActive ? styles.activeLink : styles.navLink}>
+          Přidat film
+        </NavLink>
+      </nav>
+      {/* Jednotné záhlaví s přepínačem motivu pro všechny stránky */}
       <header className={styles.header}>
         <div className={styles.titleSection}>
-          <h1>Můj Watchlist</h1>
-          <p className={styles.stats}>{watchedCount}/{totalCount} zhlédnuto</p>
+          <h1>Film Watchlist</h1>
         </div>
         <div className={styles.controls}>
-          <button className={styles.btnToggleMode} onClick={handleToggleDarkMode}title={isDarkMode ? "Přepnout na světlý motiv" : "Přepnout na tmavý motiv"}
+          <button 
+            className={styles.btnToggleMode} 
+            onClick={handleToggleDarkMode}
+            title={isDarkMode ? "Přepnout na světlý motiv" : "Přepnout na tmavý motiv"}
           >
             {isDarkMode ? '☀️ Světlý režim' : '🌙 Tmavý režim'}
           </button>
         </div>
       </header>
-      <AddFilmForm />
-    <button className={styles.btnAction} onClick={markAllAsWatched}>
-      Označit vše jako zhlédnuté
-    </button>
-    {/* Responzivní mřížka s kartami */}
-    <div className={styles.filmGrid}>
-    {films.map((film) => (
-      <FilmCard
-        key={film.id}
-        id={film.id}
-        title={film.title}
-        year={film.year}
-        genre={film.genre}
-        rating={film.rating}
-        watched={film.watched}
-        onToggleWatched={toggleWatched}
-        onRemove={removeFilm} />
-    ))
-  }
-    </div>
+
+      <Routes>
+        <Route path="/" element={<WatchlistPage />} />
+          <Route path="/form" element={<AddFilmPage />} />
+          {/* Fallback routa podle zadání: přesměruje neexistující adresy na / */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+
     </div>
   )
 }
