@@ -1,45 +1,35 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, ReactNode} from "react";
 import type { Film } from '@/types/film.types';
+import { useQuery } from "@tanstack/react-query";
+import { fetchFilms } from "@/api/films";
 
 interface WatchlistContextValue {
   films: Film[];
+  isLoading: boolean;
+  isError: boolean;
+  refetch: () => void;
   addFilm: (film: Omit<Film, 'id' | 'watched'>) => void;
   removeFilm: (id: string) => void;
-  toggleWatched: (title: string) => void;
+  toggleWatched: (id: string) => void;
   markAllAsWatched: () => void;
 }
 // vytvoření kontextu pro watchlist
 const WatchlistContext = createContext<WatchlistContextValue | null>(null);
 
-const initialFilms: Film[] = [
-  {
-    id: "1",
-    title: "Inception",
-    year: 2010,
-    genre: "Sci-Fi",
-    rating: 8.8,
-    watched: false,
-  },
-  {
-    id: "2",
-    title: "The Matrix",
-    year: 1999,
-    genre: "Action",
-    rating: 8.7,
-    watched: true,
-  },
-  {
-    id: "3",
-    title: "Interstellar",
-    year: 2014,
-    genre: "Sci-Fi",
-    rating: 10,
-    watched: false,
-  },
-];
-
 export const WatchlistProvider = ({ children }: { children: ReactNode }) => {
-  const [films, setFilms] = useState<Film[]>(initialFilms);
+  const [films, setFilms] = useState<Film[]>([]);
+  // Volání TanStack Query hooku `useQuery`
+  const { data: serverFilms, isLoading, isError, refetch } = useQuery<Film[]>({
+    queryKey: ['films'],
+    queryFn: fetchFilms,
+  });
+
+  useEffect(() => {
+    if (serverFilms) {
+      setFilms(serverFilms);
+    }
+  }, [serverFilms]);
+
   // přidání filmu do watchlistu
   const addFilm = (newFilm: Omit<Film, 'id' | 'watched'>) => {
     const filmWithId: Film = { ...newFilm, id: Date.now().toString(), watched: false };
@@ -67,7 +57,7 @@ export const WatchlistProvider = ({ children }: { children: ReactNode }) => {
   }, [films]);
 
   return (
-    <WatchlistContext.Provider value={{ films, addFilm, removeFilm, toggleWatched, markAllAsWatched }}>
+    <WatchlistContext.Provider value={{ films, isLoading, isError, refetch, addFilm, removeFilm, toggleWatched, markAllAsWatched }}>
       {children}
     </WatchlistContext.Provider>
   );
